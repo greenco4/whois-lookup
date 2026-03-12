@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf5ff;
+  --foreground: #1e1b4b;
+  --accent: #7c3aed;
+  --accent-light: #a78bfa;
+  --accent-dark: #5b21b6;
+  --bg-card: #ffffff;
+  --text-muted: #6b7280;
+  --border: #e9d5ff;
 }
 
 @theme inline {
@@ -14,13 +20,57 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f0a1e;
+    --foreground: #f5f3ff;
+    --accent: #a78bfa;
+    --accent-light: #c4b5fd;
+    --accent-dark: #7c3aed;
+    --bg-card: #1a1333;
+    --text-muted: #a5b4fc;
+    --border: #3b2776;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.whois-glow {
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  .whois-glow {
+    box-shadow: 0 0 60px rgba(167, 139, 250, 0.12);
+  }
+}
+
+.grade-badge {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: white;
+  font-weight: 800;
+  border-radius: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4rem;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+}
+
+.score-bar-bg {
+  background: var(--border);
+  border-radius: 9999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.score-bar-fill {
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.6s ease;
 }
