@@ -72,7 +72,7 @@ function findRdapServer(bootstrap: RdapBootstrap, domain: string): string | null
   return null;
 }
 
-function extractEntity(entities: RdapEntity[] | undefined, role: string) {
+function extractEntity(entities: RdapEntity[] | undefined, role: string): RdapEntity | null {
   if (!entities) return null;
   for (const entity of entities) {
     if (entity.roles?.includes(role)) return entity;
