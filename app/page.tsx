@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 function DomainIcon() {
   return (
@@ -31,6 +32,7 @@ export default function Home() {
   const [domain, setDomain] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isRateLimited, setIsRateLimited] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
@@ -39,6 +41,7 @@ export default function Home() {
 
     setLoading(true);
     setError("");
+    setIsRateLimited(false);
 
     try {
       const res = await fetch("/api/lookup", {
@@ -48,6 +51,11 @@ export default function Home() {
       });
 
       const data = await res.json();
+
+      if (res.status === 429) {
+        setIsRateLimited(true);
+        return;
+      }
 
       if (!res.ok) {
         setError(data.error || "Lookup failed");
@@ -130,6 +138,23 @@ export default function Home() {
               <p className="mt-3 text-sm text-red-500 dark:text-red-400">{error}</p>
             )}
           </form>
+
+          {isRateLimited && (
+            <div className="mt-6 max-w-md mx-auto rounded-2xl border border-violet-300 dark:border-violet-700 bg-violet-50 dark:bg-violet-950/40 p-6 shadow-lg text-center">
+              <p className="font-semibold text-lg mb-1">
+                You&apos;ve used all your free lookups for today.
+              </p>
+              <p className="text-sm text-[var(--text-muted)] mb-4">
+                Upgrade to Pro for unlimited lookups.
+              </p>
+              <Link
+                href="/pricing"
+                className="inline-block rounded-xl bg-violet-600 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-violet-700"
+              >
+                View Pricing
+              </Link>
+            </div>
+          )}
 
           <p className="mt-4 text-xs text-[var(--text-muted)]">
             10 free lookups per day. No signup required.
