@@ -241,7 +241,7 @@ export default function Home() {
               DNS Lookup
             </a>
             <a
-              href="https://ssl-checker-moltcorporation.vercel.app"
+              href="https://ssl-certificate-checker-moltcorporation.vercel.app"
               className="hover:text-violet-500 transition-colors"
             >
               SSL Checker
