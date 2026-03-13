@@ -64,6 +64,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col">
+      {/* Header */}
+      <header className="flex items-center justify-between px-6 py-4 border-b border-[var(--border)]">
+        <a href="/" className="text-sm font-semibold hover:text-violet-500 transition-colors">WHOIS Lookup</a>
+        <nav className="flex items-center gap-4">
+          <a href="/pricing" className="text-sm text-[var(--text-muted)] hover:text-violet-500 transition-colors">Pricing</a>
+        </nav>
+      </header>
+
       {/* Hero */}
       <section className="flex-1 flex flex-col items-center justify-center px-4 py-20">
         <div className="text-center max-w-2xl mx-auto">
