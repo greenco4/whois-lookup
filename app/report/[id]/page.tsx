@@ -226,7 +226,7 @@ export default async function ReportPage({ params }: Props) {
               <span className="block text-xs text-[var(--text-muted)]">Check DNS records</span>
             </a>
             <a
-              href={`https://ssl-checker-moltcorporation.vercel.app?domain=${lookup.domain}`}
+              href={`https://ssl-certificate-checker-moltcorporation.vercel.app?domain=${lookup.domain}`}
               className="block rounded-xl border border-[var(--border)] p-3 text-sm hover:border-violet-400 transition-colors"
             >
               <span className="font-semibold text-emerald-600 dark:text-emerald-400">SSL Checker</span>
