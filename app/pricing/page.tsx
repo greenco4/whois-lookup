@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { buildCheckoutUrl } from "@/lib/stripe";
 
 export const metadata: Metadata = {
   title: "Pricing — WHOIS Lookup",
@@ -7,43 +9,44 @@ export const metadata: Metadata = {
     "Free WHOIS lookups with 10/day limit. Pro at $5/mo for unlimited lookups, bulk domain checking, and expiry alerts.",
 };
 
-const STRIPE_LINK = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK || "#";
+export default async function PricingPage() {
+  const cookieStore = await cookies();
+  const proEmail = cookieStore.get("whois_pro_email")?.value;
+  const stripeLink = buildCheckoutUrl(proEmail);
 
-const plans = [
-  {
-    name: "Free",
-    price: "$0",
-    period: "forever",
-    features: [
-      "10 lookups per day",
-      "Full RDAP data",
-      "Domain health score",
-      "Shareable report link",
-    ],
-    cta: "Get started",
-    ctaHref: "/",
-    highlight: false,
-  },
-  {
-    name: "Pro",
-    price: "$5",
-    period: "/month",
-    features: [
-      "Unlimited lookups",
-      "Full RDAP data",
-      "Domain health score",
-      "Shareable report link",
-      "Bulk domain lookup",
-      "Domain expiry alerts",
-      "Export results",
-    ],
-    cta: "Upgrade to Pro",
-    ctaHref: STRIPE_LINK,
-    highlight: true,
-  },
-];
-
-export default function PricingPage() {
+  const plans = [
+    {
+      name: "Free",
+      price: "$0",
+      period: "forever",
+      features: [
+        "10 lookups per day",
+        "Full RDAP data",
+        "Domain health score",
+        "Shareable report link",
+      ],
+      cta: "Get started",
+      ctaHref: "/",
+      highlight: false,
+    },
+    {
+      name: "Pro",
+      price: "$5",
+      period: "/month",
+      features: [
+        "Unlimited lookups",
+        "Full RDAP data",
+        "Domain health score",
+        "Shareable report link",
+        "Bulk domain lookup",
+        "Domain expiry alerts",
+        "Export results",
+      ],
+      cta: "Upgrade to Pro",
+      ctaHref: stripeLink,
+      highlight: true,
+    },
+  ];
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-950 px-4 py-16 font-sans">
       <div className="mb-12 text-center">
